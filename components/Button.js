@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
-const StyledButton = styled.button`
+export const ButtonStyle = css`
   background-color: rgb(85, 66, 246);
   border: 0;
   color: #fff;
@@ -11,6 +11,7 @@ const StyledButton = styled.button`
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
+  text-decoration: none;
   svg {
     height: 16px;
   }
@@ -45,6 +46,9 @@ const StyledButton = styled.button`
         height: 26px;
       }
     `}
+`;
+const StyledButton = styled.button`
+  ${ButtonStyle}
 `;
 
 const Button = ({ children, ...rest }) => {

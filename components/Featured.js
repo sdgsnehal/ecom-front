@@ -3,6 +3,7 @@ import Center from "./Center";
 import styled from "styled-components";
 import Image from "next/image";
 import Button from "./Button";
+import ButtonLink from "./ButtonLink";
 
 const Bg = styled.div`
   background-color: #222;
@@ -12,7 +13,7 @@ const Bg = styled.div`
 const Title = styled.h1`
   margin: 0;
   font-weight: normal;
-  font-size:3rem;
+  font-size: 3rem;
 `;
 const Desc = styled.p`
   color: #aaa;
@@ -20,7 +21,7 @@ const Desc = styled.p`
 `;
 const ColumnWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   Image {
     max-width: 100%;
@@ -39,23 +40,23 @@ const ButtonWrapper = styled.div`
   gap: 10px;
   margin-top: 25px;
 `;
-const Featured = () => {
+const Featured = ({ product }) => {
   return (
     <Bg>
       <Center>
         <ColumnWrapper>
           <Column>
             <div>
-              <Title>Pro anywhere</Title>
-              <Desc>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitat
-              </Desc>
+              <Title>{product.title}</Title>
+              <Desc>{product.description}</Desc>
               <ButtonWrapper>
-                <Button white outline>
+                <ButtonLink
+                  href={"/products" + product._id}
+                  white={1}
+                  outline={1}
+                >
                   Read more
-                </Button>
+                </ButtonLink>
                 <Button primary>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
