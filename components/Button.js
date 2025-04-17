@@ -1,3 +1,4 @@
+import { primary } from "@/lib/colors";
 import React from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
@@ -12,6 +13,8 @@ export const ButtonStyle = css`
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+  font-family:'Roboto';
+  font-weight: 700;
   svg {
     height: 16px;
   }
@@ -32,11 +35,21 @@ export const ButtonStyle = css`
     `}
   ${(props) =>
     props.primary &&
+    !props.outline &&
     css`
-      background-color: #5542f6;
-      border: 1px solid #5542f6;
+      background-color: ${primary};
+      border: 1px solid ${primary};
       color: #fff;
     `}
+      ${(props) =>
+        props.primary &&
+        props.outline &&
+        css`
+          background-color: transparent;
+          border: 1px solid ${primary};
+          color: ${primary};
+        `}
+
   ${(props) =>
     props.size === "l" &&
     css`

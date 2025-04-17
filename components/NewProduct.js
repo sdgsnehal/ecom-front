@@ -4,9 +4,9 @@ import Center from "./Center";
 import ProductBox from "./ProductBox";
 const ProductGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap:20px;
-  padding-top:20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  padding-top: 20px;
 `;
 const NewProduct = ({ products }) => {
   return (
