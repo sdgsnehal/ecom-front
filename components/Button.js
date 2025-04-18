@@ -13,7 +13,7 @@ export const ButtonStyle = css`
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  font-family:'Roboto';
+  font-family: "Roboto";
   font-weight: 700;
   svg {
     height: 16px;
@@ -26,12 +26,33 @@ export const ButtonStyle = css`
       color: #000;
     `}
   ${(props) =>
+    props.block &&
+    css`
+      display: block;
+      width: 100%;
+    `}
+  ${(props) =>
     props.white &&
     props.outline &&
     css`
       background-color: transparent;
       color: #fff;
       border: 1px solid #fff;
+    `}
+      ${(props) =>
+    props.black &&
+    !props.outline &&
+    css`
+      background-color: #000;
+      color: #fff;
+    `}
+    ${(props) =>
+    props.black &&
+    props.outline &&
+    css`
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
     `}
   ${(props) =>
     props.primary &&
@@ -42,13 +63,13 @@ export const ButtonStyle = css`
       color: #fff;
     `}
       ${(props) =>
-        props.primary &&
-        props.outline &&
-        css`
-          background-color: transparent;
-          border: 1px solid ${primary};
-          color: ${primary};
-        `}
+    props.primary &&
+    props.outline &&
+    css`
+      background-color: transparent;
+      border: 1px solid ${primary};
+      color: ${primary};
+    `}
 
   ${(props) =>
     props.size === "l" &&
