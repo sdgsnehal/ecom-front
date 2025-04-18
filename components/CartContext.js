@@ -3,7 +3,7 @@ export const CartContext = createContext({});
 export function CartContextProvider({ children }) {
   const ls = typeof window !== "undefined" ? window.localStorage : null;
   const defaultProducts = ls ? JSON.parse(ls.getItem("cart")) : [];
-  const [cartProducts, setCartProducts] = useState();
+  const [cartProducts, setCartProducts] = useState([]);
   useEffect(() => {
     if (cartProducts?.length > 0) {
       ls?.setItem("cart", JSON.stringify(cartProducts));

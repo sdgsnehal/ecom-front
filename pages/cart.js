@@ -20,7 +20,7 @@ const CartPage = () => {
   const { cartProducts } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    if (cartProducts.length > 0) {
+    if (cartProducts?.length > 0) {
       axios.post("/api/cart", { ids: cartProducts }).then((response) => {
         setProducts(response.data);
       });
@@ -36,8 +36,11 @@ const CartPage = () => {
             {products?.length > 0 && (
               <>
                 <h2>Cart</h2>
-                {products.map((productId) => (
-                  <div>{productId}</div>
+                {products.map((product) => (
+                  <div key={product._id}>
+                    {product.title}:{" "}
+                    {cartProducts.filter((id) => id === product._id).length}
+                  </div>
                 ))}
               </>
             )}
