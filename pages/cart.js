@@ -2,8 +2,10 @@ import Button from "@/components/Button";
 import { CartContext } from "@/components/CartContext";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
+import Input from "@/components/Input";
 import Table from "@/components/Table";
 import axios from "axios";
+import { set } from "mongoose";
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 const ColumnWrapper = styled.div`
@@ -45,14 +47,27 @@ const QuantityBox = styled.div`
   align-items: center;
   align-content: center;
 `;
+const CityHolder = styled.div`
+  display: flex;
+  gap: 5px;
+`;
 const CartPage = () => {
   const { cartProducts, addProducts, removeProducts } = useContext(CartContext);
   const [products, setProducts] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [country, setCountry] = useState("");
+
   useEffect(() => {
     if (cartProducts?.length > 0) {
       axios.post("/api/cart", { ids: cartProducts }).then((response) => {
         setProducts(response.data);
       });
+    } else {
+      setProducts([]);
     }
   }, [cartProducts]);
   function moreOfThisProduct(id) {
@@ -133,8 +148,53 @@ const CartPage = () => {
           {!!cartProducts?.length && (
             <Box>
               <h2>Order Information</h2>
-              <input type="text" placeholder="Address" />
-              <input type="text" placeholder="Address2" />
+              <Input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <Input
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <CityHolder>
+                <Input
+                  type="text"
+                  placeholder="City"
+                  value={city}
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                  }}
+                />
+                <Input
+                  type="text"
+                  placeholder="Postal Code"
+                  value={postalCode}
+                  onChange={(e) => {
+                    setPostalCode(e.target.value);
+                  }}
+                />
+              </CityHolder>
+
+              <Input
+                type="text"
+                placeholder="Street Address"
+                value={streetAddress}
+                onChange={(e) => {
+                  setStreetAddress(e.target.value);
+                }}
+              />
+              <Input
+                type="text"
+                placeholder="Country"
+                value={country}
+                onChange={(e) => {
+                  setCountry(e.target.value);
+                }}
+              />
 
               <Button block black size={"l"}>
                 Continue to Payment
