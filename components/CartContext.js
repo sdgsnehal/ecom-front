@@ -17,9 +17,18 @@ export function CartContextProvider({ children }) {
       setCartProducts(JSON.parse(ls.getItem("cart")));
     }
   }, []);
+  function removeProducts(productId) {
+    setCartProducts((prev) => {
+      const pos = prev.indexOf(productId);
+      if (pos !== -1) {
+        return prev.filter((_, index) => index !== pos);
+      }
+      return prev;
+    });
+  }
   return (
     <CartContext.Provider
-      value={{ cartProducts, setCartProducts, addProducts }}
+      value={{ cartProducts, setCartProducts, addProducts, removeProducts }}
     >
       {children}
     </CartContext.Provider>
