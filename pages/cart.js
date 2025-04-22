@@ -6,7 +6,7 @@ import Input from "@/components/Input";
 import Table from "@/components/Table";
 import axios from "axios";
 import { set } from "mongoose";
-import React, { useContext, useEffect, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 const ColumnWrapper = styled.div`
   display: grid;
@@ -52,7 +52,8 @@ const CityHolder = styled.div`
   gap: 5px;
 `;
 const CartPage = () => {
-  const { cartProducts, addProducts, removeProducts } = useContext(CartContext);
+  const { cartProducts, addProducts, removeProducts, clearCart } =
+    useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -60,6 +61,7 @@ const CartPage = () => {
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     if (cartProducts?.length > 0) {
@@ -70,6 +72,15 @@ const CartPage = () => {
       setProducts([]);
     }
   }, [cartProducts]);
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    if (window.location.href.includes("success")) {
+      setIsSuccess(true);
+      clearCart();
+    }
+  }, [clearCart]);
   function moreOfThisProduct(id) {
     addProducts(id);
   }
@@ -95,7 +106,8 @@ const CartPage = () => {
     const price = products.find((p) => p._id === productId)?.price || 0;
     total += price;
   }
-  if (window.location.href.includes("success")) {
+  console.log(isSuccess);
+  if (isSuccess) {
     return (
       <>
         <Header />
